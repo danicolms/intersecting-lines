@@ -75,7 +75,7 @@ export const App: React.FunctionComponent = () => {
 			<Sketch
 				setup={setup}
 				draw={draw}
-				style={{ maxHeight: 450, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+				style={{ maxHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
 			/>
 			<SSignatureContainer>
 				<STitle> Lineas cruzadas </STitle>

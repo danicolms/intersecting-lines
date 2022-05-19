@@ -1,9 +1,9 @@
 {
-  "name": "@danicolms/word-clock",
+  "name": "@danicolms/intersecting-lines",
   "version": "1.0.1",
-  "description": "The time in words.",
+  "description": "Just some lines crossing each other.",
   "scope": "@danicolms",
-  "homepage": "https://danicolms.github.io/word-clock",
+  "homepage": "https://danicolms.github.io/intersecting-lines",
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -29,12 +29,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danicolms/word-clock.git"
+    "url": "git+https://github.com/danicolms/intersecting-lines.git"
   },
   "author": "@danicolms",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/danicolms/word-clock/issues"
+    "url": "https://github.com/danicolms/intersecting-lines/issues"
   },
   "resolutions": {
     "styled-components": "^5"
