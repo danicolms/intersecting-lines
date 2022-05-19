@@ -1,0 +1,1 @@
+{"mappings":"AAAA;;;;;;AAQA","sources":["src/styles.css"],"sourcesContent":["*,\n*::after,\n*::before {\n    box-sizing: border-box;\n    padding: 0;\n    margin: 0;\n}\n\nhtml,\nbody,\n#app {\n    width: 100%;\n    height: 100%;\n}\n\n"],"names":[],"version":3,"file":"index.4d663569.css.map","sourceRoot":"/__parcel_source_root/"}
