@@ -1,56 +1,86 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sketch from 'react-p5';
 import p5Types from 'p5'; //Import this for typechecking and intellisense
-import { SContainer } from './App.styles';
-
-let xspacing = 18; // Distance between each horizontal location
-let w; // Width of entire wave
-let theta = 0.0; // Start angle at 0
-let amplitude = 45.0; // Height of wave
-let period = 1000.0; // How many pixels before the wave repeats
-let dx; // Value for incrementing x
-let yvalues; // Using an array to store height values for the wave
+import { SContainer, SSignatureContainer, SSubtitle, STitle, SWrapper } from './App.styles';
+import useWindowDimensions from './utils/windowDimension';
 
 export const App: React.FunctionComponent = () => {
-	w = 616;
-	dx = Math.PI * 2 / period * xspacing;
-	yvalues = new Array(Math.floor(w / xspacing));
+	const { width, height } = useWindowDimensions();
+	const colorMaximum: number = 190;
+	const colorMinumum: number = 70;
+	const amplitude: number = 35;
+	const period: number = 200;
+	const spacing: number = 10;
 
-	function calcWave(p5: p5Types) {
-		// Increment theta (try different values for
-		// 'angular velocity' here)
-		theta += 0.01;
+	const iterator: number = 2 * Math.PI / period * spacing;
 
-		// For every x value, calculate a y value with sine function
+	const [ theta, setTheta ] = useState<number>(0);
+
+	const [ lineHeights, setLineHeights ] = useState<number[]>(new Array(Math.floor(width / spacing)));
+
+	useEffect(
+		() => {
+			setLineHeights(new Array(Math.floor(width / spacing)));
+		},
+		[ width ]
+	);
+
+	const calcWaves = (p5: p5Types, secondLine?: boolean) => {
+		setTheta(theta + 0.02);
+
 		let x = theta;
-		for (let i = 0; i < yvalues.length; i++) {
-			yvalues[i] = Math.sin(x) * amplitude;
-			x += dx;
+		for (let i = 0; i < lineHeights.length; i++) {
+			const _lineHeights = lineHeights;
+			if (secondLine) {
+				_lineHeights[i] = Math.sin(x) * amplitude + 5;
+			} else {
+				_lineHeights[i] = Math.cos(x) * amplitude;
+			}
+			setLineHeights(_lineHeights);
+			x += iterator;
 		}
-	}
-	function renderWave(p5: p5Types) {
+	};
+
+	const renderWaves = (p5: p5Types) => {
 		p5.noStroke();
-		p5.fill(255);
+
+		p5.fill(
+			Math.floor(Math.random() * colorMaximum + colorMinumum),
+			Math.floor(Math.random() * colorMaximum + colorMinumum),
+			Math.floor(Math.random() * colorMaximum + colorMinumum)
+		);
 		// A simple way to draw the wave with an ellipse at each location
-		for (let x = 0; x < yvalues.length; x++) {
-			p5.ellipse(x * xspacing, 600 / 2 + yvalues[x], 1, 1);
+		for (let x = 0; x < lineHeights.length; x++) {
+			p5.ellipse(x * spacing, height / 2 + lineHeights[x], 2.5, 2.5);
 		}
-	}
+	};
 
 	//See annotations in JS for more information
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
-		p5.createCanvas(600, 600).parent(canvasParentRef);
+		p5.createCanvas(width, height).parent(canvasParentRef);
 	};
 
 	const draw = (p5: p5Types) => {
-		p5.background(0);
-		calcWave(p5);
-		renderWave(p5);
+		p5.resizeCanvas(width, height);
+		p5.background(12);
+		calcWaves(p5);
+		renderWaves(p5);
+		calcWaves(p5, true);
+		renderWaves(p5);
 	};
 
 	return (
-		<SContainer>
-			<Sketch setup={setup} draw={draw} />
+		<SContainer lineHeights={lineHeights}>
+			<SWrapper />
+			<Sketch
+				setup={setup}
+				draw={draw}
+				style={{ maxHeight: 450, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+			/>
+			<SSignatureContainer>
+				<STitle> Lineas cruzadas </STitle>
+				<SSubtitle> @danicolms</SSubtitle>
+			</SSignatureContainer>
 		</SContainer>
 	);
 };
