@@ -78,7 +78,7 @@ export const App: React.FunctionComponent = () => {
 				style={{ maxHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
 			/>
 			<SSignatureContainer>
-				<STitle> Lineas cruzadas </STitle>
+				<STitle> Intersecting lines </STitle>
 				<SSubtitle> @danicolms</SSubtitle>
 			</SSignatureContainer>
 		</SContainer>
