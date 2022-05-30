@@ -4,6 +4,7 @@ import p5Types from 'p5'; //Import this for typechecking and intellisense
 import { SContainer, SSignatureContainer, SSubtitle, STitle, SWrapper } from './App.styles';
 import useWindowDimensions from './utils/windowDimension';
 
+console.log('💡 Running v1.1.0');
 export const App: React.FunctionComponent = () => {
 	const { width, height } = useWindowDimensions();
 	const colorMaximum: number = 190;
